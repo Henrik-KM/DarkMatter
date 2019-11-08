@@ -1,4 +1,4 @@
-function dRdE_Si = dRdE_Si(m_chi,E_e,n,rho_c,MTarget,sigmatest,qunit,Eunit,qarray,ffarray)
+function dRdE_Si = dRdE_Si(m_chi,E_e,n,rho_c,MTarget,sigmatest,qunit,Eunit,qarray,ffarray,v0,vE,vesc)
 
 % dRdE_Si Computes the number of scattering events in an Si detector.
 %   m_chi:      Mass of dark matter particle.
@@ -36,7 +36,7 @@ prefac = c^2*sec2year*(rho_c/m_chi)*(MTarget/MCell)*sigmatest*(alpha*m_e^2)/(my)
 %Calculate all q-values in the energy bin.
 for i=1:length(q)
     
-    drde(i)=(Eunit*qunit*Eta(i*qunit,E_e*Eunit,m_chi)*(F_DM(i*qunit,n))^2*Eprefactor_Si*wk*wk*FFarraySi(i,E_e))/(i*qunit*qunit*Eunit*2*2*wk);
+    drde(i)=(Eunit*qunit*Eta(i*qunit,E_e*Eunit,m_chi,v0,vE,vesc)*(F_DM(i*qunit,n))^2*Eprefactor_Si*wk*wk*FFarraySi(i,E_e))/(i*qunit*qunit*Eunit*2*2*wk);
 end
 
 dRdE_Si = prefac*sum(drde); %Sum over q-values
