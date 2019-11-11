@@ -37,9 +37,9 @@ m_e = 0.511*1e6;                                    %electron mass
 rho_chi = 0.4*1e9;                                  %local dm density [eV/cm^3]
 c = 2.99792458*1e10;                                %speed of light [cm/s]
 
-v0init =  230;
-vEinit = 240;
-vescinit = 600;
+v0init =  230e5;
+vEinit = 240e5;
+vescinit = 600e5;
 
 v0Array = linspace(200,260,50)*1e5;                                       %typical velocity [cm/s]
 vEArray = linspace(200,280,50)*1e5;                      %velocity earth [cm/s]
@@ -60,7 +60,11 @@ Emin_Ge = 0.67;
 
 for n=0:2:2
 for relevantv = 1:3
-for iterVar = 1:size(v0,2)
+    
+     NreqSi_5=zeros(1,size(v0Array,2));
+    sigSi_5=zeros(1,size(v0Array,2));
+    
+for iterVar = 1:size(v0Array,2)
     if relevantv == 1
         v0 = v0Array(iterVar);
         vesc = vescinit;
@@ -139,11 +143,9 @@ for CCD_low = 1
         end
         
     %Preallocating resluts vectors
-    NreqSi_5=zeros(1,length(l));
-    sigSi_5=zeros(1,length(l));
-    
+   
     %Start of iterations
-    for r=19
+    r=19;
         j = l(r);
         startClock=clock;   %Clock for estimating time left
         count=count+1;      %Count upwards, start on 1
@@ -217,8 +219,8 @@ for CCD_low = 1
         
        
         
-        k = k_values(r);
-        startbias=startbiases(r);
+        k = 1;%k_values(r);
+        startbias=0;%startbiases(r);
         
         %Calculating significance for different numbers of events.
         for i=1:iter(r)
@@ -229,18 +231,18 @@ for CCD_low = 1
             %[q0Ge,sigmaBestGe,NGe]=q0Dist(wantedNbrOfEvents(i),sigma_etest,rateGe,numberOfSimulations,bGe);
             %q0Comb=q0DistComb(wantedNbrOfEvents(i),sigma_etest,rateSi,rateGe,numberOfSimulations,bSi,bGe);
             
-            ZSi(count,i)=sqrt(median(q0Si));    %Calculate Z-value
+            ZSi(iterVar,i)=sqrt(median(q0Si));    %Calculate Z-value
             %ZGe(count,i)=sqrt(median(q0Ge));
             %ZComb(count,i)=sqrt(median(q0Comb));
         end
         
         
         
-        ZrelSi_5=ZSi(iterVar,count,:)-5;
+        ZrelSi_5=ZSi(iterVar,:)-5;
 
-        NreqSi_5(iterVar,count) = k*find(ZrelSi_5>0,1)+startbias;
+        NreqSi_5(iterVar) = k*find(ZrelSi_5>0,1)+startbias;
  
-        sigSi_5(iterVar,count)=NreqSi_5(iterVar,count)/sum(rateSi/sigma_etest);
+        sigSi_5(iterVar)=NreqSi_5(iterVar)/sum(rateSi/sigma_etest);
        
         
         
@@ -255,7 +257,6 @@ for CCD_low = 1
         minutes=round((tmp-seconds)/60);
         
         disp(['Estimated time left: ',num2str(hours),'h ',num2str(minutes),'m ',num2str(seconds),'s']);
-    end
     
 %     if CCD_low == 0
 %         save('FDM_q2_wanted_CCD_01_Z5xxx','NreqSi_5')

@@ -29,7 +29,7 @@ for j=1:numRuns
     maxL=@(sigma) -L(sigma);    %Made negative for fminbnd below
 
     options = optimset('tolX',10^-80,'MaxFunEvals',100000000,'MaxIter',100000000);
-    sigmaBest(j)=10^(fminbnd(maxL,0,1e-20,options));     %Find best sigma
+    sigmaBest(j)=(fminbnd(maxL,0,1e-20,options));     %Find best sigma
     
     
     if L(0)>L(sigmaBest(j))||sigmaBest(j)<0       %In case there is no local min in [0,1] set sigmabest=0
