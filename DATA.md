@@ -20,7 +20,7 @@ The input tables and historical output arrays are not independently validated ph
 
 The review examined all 20 unique text blobs across the three original commits and decoded the 14 MAT files with SciPy. No matches for credential patterns or email addresses were found in the reviewed text and decoded fields.
 
-Six full saved workspaces contain local computer-folder paths in serialized function-handle metadata. Raw paths are deliberately omitted here. These paths exist in the historical blobs as well as the current snapshot; changing only the latest files would leave the old metadata in Git history. The repository remains private during preparation.
+Six full saved workspaces contain local computer-folder paths in serialized function-handle metadata. Raw paths are deliberately omitted here. These paths exist in the historical blobs as well as the current snapshot; changing only the latest files would leave the old metadata in Git history. The repository was made public on 4 November 2026 at the owner's request, with the original files and commit history retained.
 
 This was a targeted review, including nested decoded fields. It does not certify the absence of every possible sensitive value, including opaque internal binary payloads.
 

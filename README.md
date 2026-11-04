@@ -55,7 +55,7 @@ Some legacy routines document energies and momenta in eV, velocities in cm/s, de
 
 `DM-FF.mat` contains tabulated numerical arrays used by the rate calculations. `Background.mat` contains numerical background arrays. The other MAT files contain historical outputs or complete saved simulation workspaces. Their contents and limitations are described in [DATA.md](DATA.md).
 
-The old saved workspaces include serialized function handles with local computer-folder paths. A publication review must address this metadata throughout reachable Git history before making the repository public. Future runs should save explicit numerical outputs and configuration metadata into a local `results/` folder.
+The old saved workspaces include serialized function handles with local computer-folder paths. These metadata fields are retained in the original files and commit history. Future runs should save explicit numerical outputs and configuration metadata into a local `results/` folder.
 
 ## Planned work
 
