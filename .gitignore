@@ -1,0 +1,16 @@
+# Local credentials and settings
+.env
+.env.*
+!.env.example
+private/
+
+# New local simulation outputs and logs
+results/
+*.log
+
+# MATLAB editor backups; historical tracked files are retained
+*.asv
+
+# Operating-system metadata
+.DS_Store
+Thumbs.db
